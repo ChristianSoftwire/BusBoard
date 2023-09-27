@@ -77,8 +77,11 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="BusDetailRadius.cs" />
         <Compile Include="BusTimes.cs" />
         <Compile Include="BusTimesHandler.cs" />
+        <Compile Include="PostcodeLocation.cs" />
+        <Compile Include="PostcodeHandler.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>

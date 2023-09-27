@@ -8,19 +8,32 @@ namespace BusBoard
 {
     internal class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            Console.Write("Enter the id of the bus stop you wish to check for ");
-            var busStopId = Console.ReadLine();
+            while (true)
+            {
+                Console.Write("How do you want to look for buses ");
+                var choseStopcode = Console.ReadLine()?.ToLower() == "stopcode";
 
-            var busTimes = BusTimesHandler.GetBusTimes(busStopId);
-
-            Console.WriteLine($"busTimes {busTimes}");
+                Console.Write(choseStopcode
+                    ? "Enter the id of the bus stop you wish to check for "
+                    : "Enter your nearest postcode ");
+                
+                var input = Console.ReadLine();
+                var busTimes = choseStopcode
+                    ? BusTimesHandler.GetBusTimesBusStopId(input)
+                    : BusTimesHandler.GetBusTimesPostcode(input);
+                PrintNextBuses(busTimes);
+            }
         }
 
-        public static void PrintNextBuses(List<BusTimes> busTimes)
+        private static void PrintNextBuses(IEnumerable<BusTimes> busTimes)
         {
-            //iterate over and print each bus with the corresponding time
+            foreach (var bus in busTimes)
+            {
+                var time = bus.ExpectedArrival.ToShortTimeString();
+                Console.WriteLine($"Bus {bus.LineName} will be arriving at {bus.StationName} at {time}");
+            }
         }
     }
 }
